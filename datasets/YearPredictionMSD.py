@@ -2,16 +2,33 @@ import sys
 
 import sklearn.datasets
 
-sys.path.insert(0, 'data')
 
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import os
+import requests as rq
+import zipfile
 
 
 def create_data(dataset_path):
-    df = pd.read_csv('YearPredictionMSD/YearPredictionMSD.txt', header=None)
+    try:
+        df = pd.read_csv("datasets/YearPredictionMSD/YearPredictionMSD.txt", header=None)
+    except FileNotFoundError:
+        # check if dataset/YearPredictionMSD exists
+        if not os.path.exists("datasets/YearPredictionMSD"):
+            os.makedirs("datasets/YearPredictionMSD")
+        # download the dataset
+        link = "https://archive.ics.uci.edu/static/public/203/yearpredictionmsd.zip"
+        r = rq.get(link, allow_redirects=True)
+        open("datasets/YearPredictionMSD/yearpredictionmsd.zip", 'wb').write(r.content)
+        # unzip the file and save as YearPredictionMSD.txt
+        with zipfile.ZipFile("datasets/YearPredictionMSD/yearpredictionmsd.zip", 'r') as zip_ref:
+            zip_ref.extractall("datasets/YearPredictionMSD")
+        # remove the zip file
+        os.remove("datasets/YearPredictionMSD/yearpredictionmsd.zip")
+
+        df = pd.read_csv("datasets/YearPredictionMSD/YearPredictionMSD.txt", header=None)
 
     # Split the dataframe into X and y dataframes
     df_X = df.iloc[:, 1:]

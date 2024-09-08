@@ -709,8 +709,7 @@ if __name__ == "__main__":
     # name the datasets for which the pixelflipping procedure should be run
     # suffix _channel indicates that the dataset is in channelized format for CNNs
     dataset_names = [
-        "Bias Correction",
-        "California Housing", "YearPredictionMSD", "Seoul Bike",
+        "YearPredictionMSD", "Seoul Bike",
         "Wine Quality", "EPEX-FR",
         "EPEX-FR_channel", "Seoul Bike_channel"]
 
