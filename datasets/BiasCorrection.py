@@ -11,6 +11,7 @@ import os
 
 
 def create_data(dataset_path):
+    # csv can be downloaded from https://archive.ics.uci.edu/dataset/514/bias+correction+of+numerical+prediction+model+temperature+forecast
     df = pd.read_csv("datasets/Bias Correction/Bias_correction_ucl.csv")
     df = df.dropna(axis=0)
     output_cols = ["Next_Tmax", "Next_Tmin"]

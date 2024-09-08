@@ -118,7 +118,7 @@ def unpack_dataset(dataset):
     return X_train, X_test, X_val, y_train, y_test, y_val
 
 
-def save_ensemble(ensemble, dataset_name, n_neurons=100, model_type="MLP"):
+def save_ensemble(ensemble, dataset_name, n_models, model_type="MLP"):
 
     # count number of relu layers in the ensemble.models[0]
     n_layers = 0
@@ -235,7 +235,7 @@ def train_ensemble(dataset_name, dataset, n_models, model_type="MLP"):
         print("Test loss of the ensemble: {}".format(test_loss))
 
     # save ensemble
-    save_ensemble(ensemble, dataset_name, n_neurons=n_neurons, model_type=model_type)
+    save_ensemble(ensemble, dataset_name, n_models, model_type=model_type)
 
     return ensemble
 
@@ -709,7 +709,7 @@ if __name__ == "__main__":
     # name the datasets for which the pixelflipping procedure should be run
     # suffix _channel indicates that the dataset is in channelized format for CNNs
     dataset_names = [
-        "kin8nm", "Bias Correction",
+        "Bias Correction",
         "California Housing", "YearPredictionMSD", "Seoul Bike",
         "Wine Quality", "EPEX-FR",
         "EPEX-FR_channel", "Seoul Bike_channel"]
