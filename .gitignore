@@ -1,0 +1,11 @@
+/models/pixelflipping/
+/datasets/Bias Correction/
+/datasets/California Housing/
+/datasets/EPEX-FR/lookback_*/
+/datasets/kin8nm/
+/datasets/Seoul Bike/
+/datasets/Wine Quality/
+/datasets/YearPredictionMSD/
+/.ipynb_checkpoints/
+/venv/
+/results/*
