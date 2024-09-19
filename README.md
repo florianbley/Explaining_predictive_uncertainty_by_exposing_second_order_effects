@@ -8,7 +8,7 @@ of torch is required.
 
 # Overview
 This code implements the feature-flipping experiment described in the main paper. 
-The feature-flipping_experiment.py script loads datasets, trains and saves deep ensembles 
+The featureflipping_experiment.py script loads datasets, trains and saves deep ensembles 
 or MC-dropout ensembles, trains a KDE generative model, and performs feature flipping 
 for specified uncertainty explanations.
 
