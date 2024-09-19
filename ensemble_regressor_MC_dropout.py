@@ -1,3 +1,9 @@
+"""
+Ensemble-type implementation of MC-dropout. For the sake of reproducibility we implement MC-Dropout uncertainty estimation
+as an ensemble of model clones with different forward seeds for dropout.
+"""
+
+
 import numpy as np
 import torch
 import copy

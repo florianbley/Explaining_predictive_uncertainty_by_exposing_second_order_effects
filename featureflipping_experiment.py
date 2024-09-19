@@ -1,8 +1,8 @@
 from datasets import EPEX_FR, BiasCorrection, californiaHousing, wineQuality, SeoulBike, kin8nm, YearPredictionMSD
 from MLP import MLP
 from CNN import CNN
-from Ensemble_regressor import Ensemble_regressor
-from Ensemble_regressor_MC_dropout import Ensemble_regressor_MC_dropout
+from ensemble_regressor import Ensemble_regressor
+from ensemble_regressor_MC_dropout import Ensemble_regressor_MC_dropout
 import os
 import pickle
 import torch
@@ -642,6 +642,7 @@ def calculate_aucs(flipping_curves):
     return auc
 
 def calculate_auc_stds(flipping_curves):
+    auc_list_dict = {}
     mean_dict = {}
     std_dict = {}
     for key in flipping_curves.keys():
@@ -655,9 +656,10 @@ def calculate_auc_stds(flipping_curves):
         auc_list = np.array(auc_list)
         auc_mean = np.mean(auc_list)
         auc_std = np.std(auc_list)
+        auc_list_dict[key] = auc_list
         mean_dict[key] = auc_mean
         std_dict[key] = auc_std
-    return mean_dict, std_dict
+    return mean_dict, std_dict, auc_list_dict
 
 def pixelflipping_procedure(ensemble, dataset_name, dataset, explanation_names, n_samples = 100):
     # fix random seed
@@ -694,12 +696,13 @@ def pixelflipping_procedure(ensemble, dataset_name, dataset, explanation_names, 
                                    ensemble_type="Ensemble", gamma=gamma, explanation_names=explanation_names)
     # perform actual pixelflipping with the benchmark explanations
     mean_flipping_curves, all_flipping_curves = pixelflipping(dataset_name, X_flipping, ensemble, benchmark_explanations, flipping_interval=flipping_interval)
-    aucs, stds = calculate_auc_stds(all_flipping_curves)
+    aucs, stds, auc_lists = calculate_auc_stds(all_flipping_curves)
+
 
     pixelflipping_dict = \
         {"gamma": gamma, "n_samples": n_samples, "n_features": n_features,
          "interval": flipping_interval, "flipping_curves": mean_flipping_curves,
-         "auc": aucs, "auc_stds": stds}
+         "auc": aucs, "auc_stds": stds, "auc_lists": auc_lists}
 
     return pixelflipping_dict
 
@@ -709,18 +712,20 @@ if __name__ == "__main__":
     # name the datasets for which the pixelflipping procedure should be run
     # suffix _channel indicates that the dataset is in channelized format for CNNs
     dataset_names = [
-        "YearPredictionMSD", "Seoul Bike",
-        "Wine Quality", "EPEX-FR",
-        "EPEX-FR_channel", "Seoul Bike_channel"]
+        "Bias Correction", "California Housing", "EPEX-FR", "kin8nm", "Seoul Bike", "Wine Quality",
+        "YearPredictionMSD", "EPEX-FR_channel", "Seoul Bike_channel"]
 
     # name uncertainty type either "ensemble" or "MC_dropout"
-    uncertainty_type = "MC_dropout"
+    uncertainty_type = "ensemble"
 
     # list of compared uncertainty explanations
     explanation_methods = [
-        "LRP", "CovLRP", "GI", "CovGI",
-        "Shapley", "CovShapley", "Sensitivity", "IG",
-        "CovIG", "LIME"]
+        "LRP", "CovLRP",
+        "GI", "CovGI",
+        "Shapley", "CovShapley",
+        "Sensitivity",
+        "IG", "CovIG",
+        "LIME"]
 
     # number of models in the ensemble, adjust as needed
     n_models = 3

@@ -4,5 +4,3 @@ scikit-learn
 zennit
 captum
 requests
-torch
-torchvision
