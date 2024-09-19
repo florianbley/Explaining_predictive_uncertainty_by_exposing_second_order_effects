@@ -22,7 +22,7 @@ an ensemble of neural networks with different dropout seeds.
 The demo.py script provides a simple example of explaining predictive uncertainty for a 
 tabular dataset.
 
-# Running Feature Flipping
+# Running Feature-Flipping
 To rerun the feature flipping experiment, run the feature_flipping_experiment.py script. 
 The featureflipping_experiment.py will
 1) load the datasets specified in the dataset_names list of the main block
