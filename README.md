@@ -4,13 +4,16 @@ This repository contains the code implementation for [Explaining Predictive Unce
 # Setup
 Necessary python packages are specified in the requirements.txt file. In
 addition to the packages listed in the requirements.txt file, a working installation
-of torch is required. 
+of torch is required. You can download a suitable torch version [here](https://pytorch.org/get-started/locally/).
 
 # Overview
 This code implements the feature-flipping experiment described in the main paper. 
 
 Datasets and preprocessing scripts are in the datasets folder. 
 Single models are implemented in CNN.py and MLP.py.
+
+The kde.py script contains the implementation of the Kernel Density Estimation generative
+model used for inpainting removed features.
 
 Deep ensemble uncertainty estimators are in Ensemble-regressors.py, while MC-Dropout is 
 implemented in Ensemble_regressor_MC_dropout.py. For reproducibility, MC-Dropout is treated as 
@@ -20,14 +23,14 @@ The demo.py script provides a simple example of explaining predictive uncertaint
 tabular dataset.
 
 # Running Feature-Flipping
-To rerun the feature flipping experiment, run the featureflipping_experiment.py script. 
+To rerun the feature-flipping experiment, run the featureflipping_experiment.py script. 
 The script will
 1) load the datasets specified in the dataset_names list of the main block
-2) Train either a deep ensemble or MC-dropout ensemble, 
+2) train either a deep ensemble or MC-dropout ensemble, 
 as specified by the uncertainty_type ('ensemble' or 'MC_dropout')
 3) explain predictive uncertainty with the methods specified in the explanation_methods list
 4) run the feature flipping experiment, calculate the AUFC values
-5) save results as pkl files in the results folder.
+5) save results as .pkl files in the results folder.
 
 To change the tested datasets, number of models in the ensembles, the uncertainty estimator,
 or the explanation methods, modify the corresponding variables in the main block of the script.
