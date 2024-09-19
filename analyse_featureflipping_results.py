@@ -213,7 +213,7 @@ if __name__ == "__main__":
                 #continue
             results_dict[file_name] = pickle.load(f)
 
-    # benchmark explanation names
+    # extract auc and std values from the results_dict
     first_auc_dict = results_dict[list(results_dict.keys())[0]]["auc"]
     first_std_dict = results_dict[list(results_dict.keys())[0]]["auc_stds"]
     auc_keys = list(first_auc_dict.keys())
@@ -257,8 +257,8 @@ if __name__ == "__main__":
 
     # get Cov method column names, i.e. the set of column names that start with "Cov", without the "_diag" and "_marg" suffixes and without the "Cov" prefix
     cov_methods = set([col.split('_')[0].split("Cov")[1] for col in data[0] if col.startswith("Cov")])
-    # expand into column names, keeping the following order "LRP", "CovLRP_diag", "CovLRP_marg", etc.
 
+    # expand into column names, keeping the following order "LRP", "CovLRP_diag", "CovLRP_marg", etc.
     column_names = []
     for cov in cov_methods:
         column_names.append("Cov"+f"{cov}_diag")
@@ -273,8 +273,6 @@ if __name__ == "__main__":
     auc_df = auc_df[column_names]
     std_df = std_df[column_names]
     std_df["max"] = std_df.max(axis=1)
-
-    # change the order of the columns such t
 
     # Generate the LaTeX table format
     latex_table = create_latex_table(auc_df, std_df)

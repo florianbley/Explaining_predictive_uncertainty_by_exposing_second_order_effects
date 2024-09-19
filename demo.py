@@ -80,7 +80,6 @@ if __name__ == '__main__':
     # First we compute LRP explanations for each model prediction
     model_explanations = torch.stack([lrp(model, X_test, gamma=0.3) for model in model_list])
 
-    # now we compute the CovLRP uncertainty explanation
     # Iterate over the data points and compute covariance matrix for each data point heatmap
     Cov_LRP = []
     for n in range(model_explanations.shape[1]):
