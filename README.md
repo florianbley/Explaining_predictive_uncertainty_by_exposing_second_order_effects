@@ -23,7 +23,7 @@ The demo.py script provides a simple example of explaining predictive uncertaint
 tabular dataset.
 
 # Running Feature-Flipping
-To rerun the feature flipping experiment, run the feature_flipping_experiment.py script. 
+To rerun the feature flipping experiment, run the featureflipping_experiment.py script. 
 The featureflipping_experiment.py will
 1) load the datasets specified in the dataset_names list of the main block
 2) Train either a deep ensemble or MC-dropout ensemble, 
