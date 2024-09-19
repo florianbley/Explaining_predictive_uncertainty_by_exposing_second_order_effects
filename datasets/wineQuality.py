@@ -84,6 +84,10 @@ def serve_dataset():
     y_train, y_val = y_train[:n_train], y_train[n_train:]
     return X_train, X_test, X_val, y_train[:, None], y_test[:, None], y_val[:, None]
 
+def get_feature_names():
+    raw_data_path_red, raw_data_path_white = get_rawdata_paths()
+    df_red = pd.read_csv(raw_data_path_red, delimiter=";", decimal=",")
+    return list(df_red.columns[:-1])
 if __name__ == "__main__":
     np.random.seed(0)
     X_train, X_test, y_train, y_test = serve_dataset()
