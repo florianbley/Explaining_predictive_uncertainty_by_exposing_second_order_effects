@@ -24,7 +24,7 @@ tabular dataset.
 
 # Running Feature-Flipping
 To rerun the feature flipping experiment, run the featureflipping_experiment.py script. 
-The featureflipping_experiment.py will
+The script will
 1) load the datasets specified in the dataset_names list of the main block
 2) Train either a deep ensemble or MC-dropout ensemble, 
 as specified by the uncertainty_type ('ensemble' or 'MC_dropout')
